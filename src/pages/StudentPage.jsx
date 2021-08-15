@@ -11,7 +11,7 @@ import DrawerStudent from "../components/Student/DrawerStudent";
 const StudentPage = () => {
   const [data, setData] = useState([]);
   const [filterTable, setFilterTable] = useState(null);
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(true);
 
   return (
     <div>
@@ -31,7 +31,11 @@ const StudentPage = () => {
       />
       <FilterWrapper setFilterTable={setFilterTable} data={data} />
       <TableStudent data={data} setData={setData} filterTable={filterTable} />
-      <DrawerStudent setOpen={setOpenDrawer} open={openDrawer}/>
+      <DrawerStudent
+        setOpen={setOpenDrawer}
+        open={openDrawer}
+        setData={setData}
+      />
     </div>
   );
 };

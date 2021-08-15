@@ -17,6 +17,17 @@
   margin-bottom: 15px !important;
 }
 
+.error-field{
+  background: #ffdcdf;
+  border: 1px dashed #ff2b60;
+  border-top: none;
+  color: #6d001b;
+  padding: 5px;
+  font-size: 13px;
+  text-align: center;
+}
+
+
 .container {
   width: 100%;
   padding-right: var(--bs-gutter-x, 0.75rem);

@@ -62,7 +62,7 @@ const TableStudent = ({ data, setData, filterTable }) => {
       loading={isLoading}
       columns={columns}
       dataSource={filterTable === null ? data : filterTable}
-      pagination={{ pageSize: 5 }}
+      pagination={{ pageSize: 4 }}
       scroll={{ x: 800 }}
     />
   );

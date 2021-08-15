@@ -9,4 +9,10 @@ const countStudents = async () => {
   const resp = await clienteAxios.get("/student/count");
   return resp.data;
 };
-export { getStudents, countStudents };
+
+const createStudent = async (data) => {
+  const resp = await clienteAxios.post("/student", data);
+  return resp.data;
+};
+
+export { getStudents, countStudents, createStudent };
