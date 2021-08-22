@@ -109,11 +109,7 @@ const ModalStudent = ({ setOpen, open, studentId, setStudentId }) => {
   };
 
   useEffect(() => {
-    studentId !== 0 &&
-      getOneStudent(studentId).then((resp) => {
-        console.log(resp);
-        setStudent(resp);
-      });
+    studentId !== 0 && getOneStudent(studentId).then(setStudent);
   }, [studentId]);
 
   return (

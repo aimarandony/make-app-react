@@ -20,4 +20,15 @@ const createStudent = async (data) => {
   return resp.data;
 };
 
-export { getStudents, countStudents, createStudent, getOneStudent };
+const updStatusStudent = async (id) => {
+  const resp = await clienteAxios.patch(`/student/${id}`);
+  return resp.data;
+};
+
+export {
+  getStudents,
+  countStudents,
+  createStudent,
+  getOneStudent,
+  updStatusStudent,
+};

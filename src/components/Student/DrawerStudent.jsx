@@ -132,12 +132,11 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
       : setFormatDateText("");
   };
 
-  const handleValideDNI = () => {
+  const handleValidateDNI = () => {
     setBtnValidarLoading(true);
     if (values.nrDocument.length === 8) {
       getDataOfReniec({ dni: values.nrDocument }).then((resp) => {
         console.log(resp);
-
         if (resp.status === 200) {
           const nameAPI = resp.response.nombres;
           const lastNameAPI =
@@ -153,6 +152,12 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
 
         setBtnValidarLoading(false);
       });
+
+      setTimeout(() => {
+        message.warn("El tiempo de espera ha terminado. Vuelva a intentarlo.");
+        setBtnValidarLoading(false);
+        return true;
+      }, 8000);
     }
   };
 
@@ -219,7 +224,7 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
           </Col>
           <Col span={6}>
             <Form.Item label=".">
-              <Button onClick={handleValideDNI} loading={btnValidarLoading}>
+              <Button onClick={handleValidateDNI} loading={btnValidarLoading}>
                 Validar
               </Button>
             </Form.Item>
