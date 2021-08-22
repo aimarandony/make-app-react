@@ -6,7 +6,7 @@ import "./App.less";
 import { AuthContext } from "./auth/AuthContext";
 
 const App = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
 
   return (
     <AuthContext.Provider value={{ authenticated, setAuthenticated }}>

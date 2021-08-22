@@ -7,11 +7,14 @@ import { PlusOutlined } from "@ant-design/icons";
 import FilterWrapper from "../components/FilterWrapper";
 import TableStudent from "../components/Student/TableStudent";
 import DrawerStudent from "../components/Student/DrawerStudent";
+import ModalStudent from "../components/Student/ModalStudent";
 
 const StudentPage = () => {
   const [data, setData] = useState([]);
   const [filterTable, setFilterTable] = useState(null);
-  const [openDrawer, setOpenDrawer] = useState(true);
+  const [openDrawer, setOpenDrawer] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [studentId, setStudentId] = useState(0);
 
   return (
     <div>
@@ -30,11 +33,23 @@ const StudentPage = () => {
         }
       />
       <FilterWrapper setFilterTable={setFilterTable} data={data} />
-      <TableStudent data={data} setData={setData} filterTable={filterTable} />
+      <TableStudent
+        data={data}
+        setData={setData}
+        filterTable={filterTable}
+        setOpenModal={setOpenModal}
+        setStudentId={setStudentId}
+      />
       <DrawerStudent
         setOpen={setOpenDrawer}
         open={openDrawer}
         setData={setData}
+      />
+      <ModalStudent
+        setOpen={setOpenModal}
+        open={openModal}
+        studentId={studentId}
+        setStudentId={setStudentId}
       />
     </div>
   );

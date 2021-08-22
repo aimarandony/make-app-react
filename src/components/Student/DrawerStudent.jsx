@@ -298,7 +298,9 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
                 }
               >
                 {districts.map((data) => (
-                  <Select.Option value={data.id}>{data.name}</Select.Option>
+                  <Select.Option value={data.id} key={data.id}>
+                    {data.name}
+                  </Select.Option>
                 ))}
               </Select>
               {errors.district && touched.district ? (

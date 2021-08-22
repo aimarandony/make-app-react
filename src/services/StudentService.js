@@ -5,6 +5,11 @@ const getStudents = async () => {
   return resp.data;
 };
 
+const getOneStudent = async (id) => {
+  const resp = await clienteAxios.get(`/student/${id}`);
+  return resp.data;
+};
+
 const countStudents = async () => {
   const resp = await clienteAxios.get("/student/count");
   return resp.data;
@@ -15,4 +20,4 @@ const createStudent = async (data) => {
   return resp.data;
 };
 
-export { getStudents, countStudents, createStudent };
+export { getStudents, countStudents, createStudent, getOneStudent };
