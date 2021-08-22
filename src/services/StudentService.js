@@ -25,10 +25,16 @@ const updStatusStudent = async (id) => {
   return resp.data;
 };
 
+const updateStudent = async (data, id) => {
+  const resp = await clienteAxios.put(`/student/${id}`, data);
+  return resp.data;
+};
+
 export {
   getStudents,
   countStudents,
   createStudent,
+  updateStudent,
   getOneStudent,
   updStatusStudent,
 };

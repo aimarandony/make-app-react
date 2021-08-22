@@ -39,11 +39,14 @@ const StudentPage = () => {
         filterTable={filterTable}
         setOpenModal={setOpenModal}
         setStudentId={setStudentId}
+        setOpenDrawer={setOpenDrawer}
       />
       <DrawerStudent
         setOpen={setOpenDrawer}
         open={openDrawer}
         setData={setData}
+        studentId={studentId}
+        setStudentId={setStudentId}
       />
       <ModalStudent
         setOpen={setOpenModal}

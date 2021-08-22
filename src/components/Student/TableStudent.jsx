@@ -11,11 +11,17 @@ const TableStudent = ({
   filterTable,
   setOpenModal,
   setStudentId,
+  setOpenDrawer,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   const handleDetail = (id) => {
     setOpenModal(true);
+    setStudentId(id);
+  };
+
+  const handleEdit = (id) => {
+    setOpenDrawer(true);
     setStudentId(id);
   };
 
@@ -112,7 +118,12 @@ const TableStudent = ({
             Ver Detalle
           </Button>
           {isActive && (
-            <Button type="primary" size="small" icon={<EditOutlined />}>
+            <Button
+              type="primary"
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => handleEdit(id)}
+            >
               Editar
             </Button>
           )}

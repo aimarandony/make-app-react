@@ -3,7 +3,12 @@ import React, { useEffect, useState } from "react";
 import FieldInformation from "../FieldInformation";
 
 import { getDistricts } from "../../services/DistrictService";
-import { createStudent, getStudents } from "../../services/StudentService";
+import {
+  createStudent,
+  getOneStudent,
+  getStudents,
+  updateStudent,
+} from "../../services/StudentService";
 import { getDataOfReniec } from "../../services/ReniecService";
 
 import { useFormik } from "formik";
@@ -42,7 +47,7 @@ const DividerForm = styled(Divider)`
 
 const dateFormatList = ["DD-MM-YYYY", "YYYY-MM-DD"];
 
-const DrawerStudent = ({ setOpen, open, setData }) => {
+const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
   moment.locale("es");
 
   const [districts, setDistricts] = useState([]);
@@ -90,6 +95,7 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
     errors,
     touched,
     resetForm,
+    setValues,
   } = useFormik({
     initialValues: {
       name: "",
@@ -111,15 +117,27 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
     validationSchema,
     onSubmit: (data) => {
       console.log("DATA FORMIK", data);
-      createStudent(data)
-        .then(() => {
-          message.success("Estudiante registrado correctamente.");
-          updateDataStudents();
-          handleCloseDrawer();
-        })
-        .catch(() =>
-          message.error("Ocurrió un error al registrar. Inténtelo de nuevo.")
-        );
+      if (studentId === 0) {
+        createStudent(data)
+          .then(() => {
+            message.success("Estudiante registrado correctamente.");
+            updateDataStudents();
+            handleCloseDrawer();
+          })
+          .catch(() =>
+            message.error("Ocurrió un error al registrar. Inténtelo de nuevo.")
+          );
+      } else {
+        updateStudent(data, studentId)
+          .then(() => {
+            message.success("Estudiante actualizado correctamente.");
+            updateDataStudents();
+            handleCloseDrawer();
+          })
+          .catch(() =>
+            message.error("Ocurrió un error al actualizar. Inténtelo de nuevo.")
+          );
+      }
     },
   });
 
@@ -165,6 +183,7 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
     resetForm();
     setOpen(false);
     setFormatDateText("");
+    setStudentId(0);
   };
 
   const updateDataStudents = () => {
@@ -178,14 +197,36 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
     });
   };
 
+  const setDataStudent = () => {
+    getOneStudent(studentId).then((resp) => {
+      console.log(resp);
+      setValues({
+        id: resp.id,
+        name: resp.name,
+        lastName: resp.lastName,
+        nrDocument: resp.nrDocument,
+        gender: resp.gender,
+        dateUtil: moment(resp.dateOfBirth),
+        district: {
+          id: resp.district.id,
+        },
+        phone: resp.phone,
+        address: resp.address,
+        email: resp.email,
+      });
+    });
+  };
+
   useEffect(() => {
     getDistricts().then(setDistricts);
-  }, []);
+    studentId !== 0 && setDataStudent();
+    // eslint-disable-next-line
+  }, [studentId]);
 
   return (
     <Drawer
       width={400}
-      title="Registrar Estudiante"
+      title="Estudiante"
       onClose={handleCloseDrawer}
       visible={open}
       footer={
@@ -200,7 +241,7 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
           <Col span={16}>
             <Form.Item>
               <Button size="large" type="primary" onClick={handleSubmit} block>
-                Registrar
+                {studentId !== 0 ? "Actualizar" : "Registrar"}
               </Button>
             </Form.Item>
           </Col>
@@ -224,7 +265,11 @@ const DrawerStudent = ({ setOpen, open, setData }) => {
           </Col>
           <Col span={6}>
             <Form.Item label=".">
-              <Button onClick={handleValidateDNI} loading={btnValidarLoading}>
+              <Button
+                onClick={handleValidateDNI}
+                loading={btnValidarLoading}
+                disabled
+              >
                 Validar
               </Button>
             </Form.Item>

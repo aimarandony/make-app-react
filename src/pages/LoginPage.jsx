@@ -7,8 +7,8 @@ import styled from "styled-components";
 import Logo from "../assets/LogoMake.svg";
 import { AuthContext } from "../auth/AuthContext";
 
-const imageCoverURL =
-  "https://scontent.flim14-1.fna.fbcdn.net/v/t39.30808-6/223443097_2595774897386112_4862245433391937743_n.jpg?_nc_cat=104&ccb=1-5&_nc_sid=a26aad&_nc_ohc=N95KWhazx_QAX8bjis0&_nc_ht=scontent.flim14-1.fna&oh=61d8bc6e11f1e9236be179bb9385725b&oe=611C14C0";
+import imageCoverURL from "../assets/loginCover01.jpg";
+
 const imageCoverWidth = 250;
 const wrapperWidth = 650;
 
