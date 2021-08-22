@@ -47,7 +47,13 @@ const DividerForm = styled(Divider)`
 
 const dateFormatList = ["DD-MM-YYYY", "YYYY-MM-DD"];
 
-const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
+const DrawerStudent = ({
+  setOpen,
+  open,
+  setData,
+  studentIdEdit,
+  setStudentIdEdit,
+}) => {
   moment.locale("es");
 
   const [districts, setDistricts] = useState([]);
@@ -117,7 +123,7 @@ const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
     validationSchema,
     onSubmit: (data) => {
       console.log("DATA FORMIK", data);
-      if (studentId === 0) {
+      if (studentIdEdit === 0) {
         createStudent(data)
           .then(() => {
             message.success("Estudiante registrado correctamente.");
@@ -128,7 +134,7 @@ const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
             message.error("Ocurrió un error al registrar. Inténtelo de nuevo.")
           );
       } else {
-        updateStudent(data, studentId)
+        updateStudent(data, studentIdEdit)
           .then(() => {
             message.success("Estudiante actualizado correctamente.");
             updateDataStudents();
@@ -183,7 +189,7 @@ const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
     resetForm();
     setOpen(false);
     setFormatDateText("");
-    setStudentId(0);
+    setStudentIdEdit(0);
   };
 
   const updateDataStudents = () => {
@@ -198,8 +204,8 @@ const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
   };
 
   const setDataStudent = () => {
-    getOneStudent(studentId).then((resp) => {
-      console.log(resp);
+    getOneStudent(studentIdEdit).then((resp) => {
+      console.log("DRAWER", resp);
       setValues({
         id: resp.id,
         name: resp.name,
@@ -219,9 +225,9 @@ const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
 
   useEffect(() => {
     getDistricts().then(setDistricts);
-    studentId !== 0 && setDataStudent();
+    studentIdEdit !== 0 && setDataStudent();
     // eslint-disable-next-line
-  }, [studentId]);
+  }, [studentIdEdit]);
 
   return (
     <Drawer
@@ -241,7 +247,7 @@ const DrawerStudent = ({ setOpen, open, setData, studentId, setStudentId }) => {
           <Col span={16}>
             <Form.Item>
               <Button size="large" type="primary" onClick={handleSubmit} block>
-                {studentId !== 0 ? "Actualizar" : "Registrar"}
+                {studentIdEdit !== 0 ? "Actualizar" : "Registrar"}
               </Button>
             </Form.Item>
           </Col>

@@ -78,7 +78,7 @@ const InfoContentText = styled.p`
   color: #5b6d86;
 `;
 
-const ModalStudent = ({ setOpen, open, studentId, setStudentId }) => {
+const ModalStudent = ({ setOpen, open, studentIdModal, setStudentIdModal }) => {
   moment.locale("es");
 
   const [student, setStudent] = useState(studentObj);
@@ -104,13 +104,17 @@ const ModalStudent = ({ setOpen, open, studentId, setStudentId }) => {
 
   const handleCloseModal = () => {
     setOpen(false);
-    setStudentId(0);
+    setStudentIdModal(0);
     setStudent(studentObj);
   };
 
   useEffect(() => {
-    studentId !== 0 && getOneStudent(studentId).then(setStudent);
-  }, [studentId]);
+    studentIdModal !== 0 &&
+      getOneStudent(studentIdModal).then((resp) => {
+        console.log("MODAL", resp);
+        setStudent(resp);
+      });
+  }, [studentIdModal]);
 
   return (
     <Modal

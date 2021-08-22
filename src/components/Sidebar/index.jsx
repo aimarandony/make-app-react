@@ -96,7 +96,7 @@ const Sidebar = ({ width, headerHeight }) => {
           </Link>
         </ListItem>
         <ListItem>
-          <Link to="/studentr">
+          <Link to="/sponsor">
             <TeamOutlined />
             <LinkName>Patrocinador</LinkName>
           </Link>

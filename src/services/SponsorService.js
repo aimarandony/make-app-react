@@ -1,42 +1,42 @@
 import clienteAxios from "../config/AxiosConfig";
 
-const model = "student";
+const model = "sponsor";
 
-const getStudents = async () => {
+const getSponsors = async () => {
   const resp = await clienteAxios.get(`/${model}`);
   return resp.data;
 };
 
-const getOneStudent = async (id) => {
+const getOneSponsor = async (id) => {
   const resp = await clienteAxios.get(`/${model}/${id}`);
   return resp.data;
 };
 
-const countStudents = async () => {
+const countSponsors = async () => {
   const resp = await clienteAxios.get(`/${model}/count`);
   return resp.data;
 };
 
-const createStudent = async (data) => {
+const createSponsor = async (data) => {
   const resp = await clienteAxios.post(`/${model}`, data);
   return resp.data;
 };
 
-const updStatusStudent = async (id) => {
+const updStatusSponsor = async (id) => {
   const resp = await clienteAxios.patch(`/${model}/${id}`);
   return resp.data;
 };
 
-const updateStudent = async (data, id) => {
+const updateSponsor = async (data, id) => {
   const resp = await clienteAxios.put(`/${model}/${id}`, data);
   return resp.data;
 };
 
 export {
-  getStudents,
-  countStudents,
-  createStudent,
-  updateStudent,
-  getOneStudent,
-  updStatusStudent,
+  getSponsors,
+  countSponsors,
+  createSponsor,
+  updateSponsor,
+  getOneSponsor,
+  updStatusSponsor,
 };

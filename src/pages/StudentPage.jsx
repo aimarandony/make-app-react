@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { PlusOutlined } from "@ant-design/icons";
+import { Button } from "antd";
+
+import { countStudents } from "../services/StudentService";
 
 import HeaderPage from "../components/HeaderPage";
-
-import { Button } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
 import FilterWrapper from "../components/FilterWrapper";
 import TableStudent from "../components/Student/TableStudent";
 import DrawerStudent from "../components/Student/DrawerStudent";
@@ -14,7 +16,13 @@ const StudentPage = () => {
   const [filterTable, setFilterTable] = useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-  const [studentId, setStudentId] = useState(0);
+  const [studentIdModal, setStudentIdModal] = useState(0);
+  const [studentIdEdit, setStudentIdEdit] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    countStudents().then(setCount);
+  }, []);
 
   return (
     <div>
@@ -32,27 +40,33 @@ const StudentPage = () => {
           </Button>
         }
       />
-      <FilterWrapper setFilterTable={setFilterTable} data={data} />
+      <FilterWrapper
+        setFilterTable={setFilterTable}
+        data={data}
+        title={`${count} Estudiantes`}
+        inputPlaceholder="Buscar por Nombre, Apellido ó DNI"
+      />
       <TableStudent
         data={data}
         setData={setData}
         filterTable={filterTable}
         setOpenModal={setOpenModal}
-        setStudentId={setStudentId}
+        setStudentIdModal={setStudentIdModal}
+        setStudentIdEdit={setStudentIdEdit}
         setOpenDrawer={setOpenDrawer}
       />
       <DrawerStudent
         setOpen={setOpenDrawer}
         open={openDrawer}
         setData={setData}
-        studentId={studentId}
-        setStudentId={setStudentId}
+        studentIdEdit={studentIdEdit}
+        setStudentIdEdit={setStudentIdEdit}
       />
       <ModalStudent
         setOpen={setOpenModal}
         open={openModal}
-        studentId={studentId}
-        setStudentId={setStudentId}
+        studentIdModal={studentIdModal}
+        setStudentIdModal={setStudentIdModal}
       />
     </div>
   );

@@ -31,7 +31,7 @@ const InputContent = styled.div`
   width: 320px;
 `;
 
-const FilterWrapper = ({ setFilterTable, data }) => {
+const FilterWrapper = ({ setFilterTable, data, title, inputPlaceholder }) => {
   const handleSearch = (value) => {
     setFilterTable(
       data.filter((o) =>
@@ -46,12 +46,12 @@ const FilterWrapper = ({ setFilterTable, data }) => {
     <Content>
       <Information>
         <HiUser size="24" color={blue.primary} />
-        <Title>75 Estudiantes</Title>
+        <Title>{title}</Title>
       </Information>
       <InputContent>
         <Input.Search
           size="large"
-          placeholder="Buscar por Nombre, Apellido ó DNI"
+          placeholder={inputPlaceholder}
           onKeyUpCapture={(e) => handleSearch(e.target.value)}
         />
       </InputContent>
