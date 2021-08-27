@@ -4,8 +4,26 @@ import { EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Button, Table } from "antd";
 import { getSponsors } from "../../services/SponsorService";
 
-const TableSponsor = ({ data, setData, filterTable }) => {
+const TableSponsor = ({
+  data,
+  setData,
+  filterTable,
+  setOpenDrawer,
+  setSponsorIdEdit,
+  setOpenModal,
+  setSponsorIdModal,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleDetail = (id) => {
+    setOpenModal(true);
+    setSponsorIdModal(id);
+  };
+
+  const handleEdit = (id) => {
+    setOpenDrawer(true);
+    setSponsorIdEdit(id);
+  };
 
   useEffect(() => {
     getSponsors().then((resp) => {
@@ -28,22 +46,42 @@ const TableSponsor = ({ data, setData, filterTable }) => {
       scroll={{ x: 800 }}
     >
       <Table.Column title="Nombre y Apellido" dataIndex="fullName" />
-      <Table.Column title="Celular" dataIndex="phone" />
-      <Table.Column title="Correo" dataIndex="email" />
+      <Table.Column
+        title="Celular"
+        render={({ phone }) => (
+          <span style={{ color: `${!phone && "gray"}` }}>
+            {phone ? phone : "NO REGISTRADO"}
+          </span>
+        )}
+      />
+      <Table.Column
+        title="Correo"
+        render={({ email }) => (
+          <span style={{ color: `${!email && "gray"}` }}>
+            {email ? email : "NO REGISTRADO"}
+          </span>
+        )}
+      />
       <Table.Column title="País" dataIndex="countryName" />
       <Table.Column
         title="Acciones"
-        render={() => (
+        render={({ id }) => (
           <>
             <Button
               type="ghost"
               size="small"
+              onClick={() => handleDetail(id)}
               icon={<EyeOutlined />}
               style={{ marginRight: "8px" }}
             >
               Ver Detalle
             </Button>
-            <Button type="primary" size="small" icon={<EditOutlined />}>
+            <Button
+              type="primary"
+              size="small"
+              onClick={() => handleEdit(id)}
+              icon={<EditOutlined />}
+            >
               Editar
             </Button>
           </>
