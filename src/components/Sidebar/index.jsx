@@ -83,7 +83,7 @@ const Sidebar = ({ width, headerHeight }) => {
         </ListItem>
         <ListItem category>Procesos</ListItem>
         <ListItem>
-          <Link to="/studentr">
+          <Link to="/scholarship">
             <BookOutlined />
             <LinkName>Becas</LinkName>
           </Link>

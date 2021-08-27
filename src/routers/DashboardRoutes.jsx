@@ -6,12 +6,14 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import StudentPage from "../pages/StudentPage";
 import SponsorPage from "../pages/SponsorPage";
+import ScholarshipPage from "../pages/ScholarshipPage";
 
 const DashboardRoutes = () => {
   return (
     <Dashboard>
       <Switch>
         <Route exact path="/home" component={HomePage} />
+        <Route exact path="/scholarship" component={ScholarshipPage} />
         <Route exact path="/student" component={StudentPage} />
         <Route exact path="/sponsor" component={SponsorPage} />
         <Redirect to="/home" />
