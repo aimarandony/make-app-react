@@ -71,8 +71,22 @@ const TableStudent = ({
     >
       <Table.Column title="Nombre y Apellido" dataIndex="fullName" />
       <Table.Column title="DNI" dataIndex="nrDocument" />
-      <Table.Column title="Correo" dataIndex="email" />
-      <Table.Column title="Celular" dataIndex="phone" />
+      <Table.Column
+        title="Correo"
+        render={({ email }) => (
+          <span style={{ color: `${!email && "gray"}` }}>
+            {email ? email : "NO REGISTRADO"}
+          </span>
+        )}
+      />
+      <Table.Column
+        title="Celular"
+        render={({ phone }) => (
+          <span style={{ color: `${!phone && "gray"}` }}>
+            {phone ? phone : "NO REGISTRADO"}
+          </span>
+        )}
+      />
       <Table.Column
         title="Estado"
         render={({ isActive, id }) => (
