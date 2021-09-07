@@ -239,7 +239,7 @@ const DrawerStudent = ({
         <Row gutter={12}>
           <Col span={8}>
             <Form.Item>
-              <Button size="large" onClick={() => setOpen(false)} block>
+              <Button size="large" onClick={handleCloseDrawer} block>
                 Cancelar
               </Button>
             </Form.Item>
