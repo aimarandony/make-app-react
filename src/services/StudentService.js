@@ -1,6 +1,6 @@
 import clienteAxios from "../config/AxiosConfig";
 
-const model = "student";
+const model = "students";
 
 const getStudents = async () => {
   const resp = await clienteAxios.get(`/${model}`);
