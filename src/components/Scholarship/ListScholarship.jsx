@@ -11,7 +11,12 @@ const CardWrapper = styled.div`
   gap: 20px;
 `;
 
-const ListScholarship = ({ data, setData }) => {
+const ListScholarship = ({
+  data,
+  setData,
+  setOpenModal,
+  setScholarshipIdModal,
+}) => {
   useEffect(() => {
     getScholarships().then(setData);
   }, [setData]);
@@ -19,7 +24,12 @@ const ListScholarship = ({ data, setData }) => {
   return (
     <CardWrapper>
       {data.map((resp) => (
-        <CardScholarship data={resp} key={resp.id} />
+        <CardScholarship
+          data={resp}
+          key={resp.id}
+          setOpenModal={setOpenModal}
+          setScholarshipIdModal={setScholarshipIdModal}
+        />
       ))}
     </CardWrapper>
   );

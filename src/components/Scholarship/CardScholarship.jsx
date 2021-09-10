@@ -92,10 +92,16 @@ const InfoText = styled.span`
   margin-left: 5px;
 `;
 
-const CardScholarship = ({ data }) => {
+const CardScholarship = ({ data, setOpenModal, setScholarshipIdModal }) => {
   moment.locale("es");
 
+  const handleDetail = (id) => {
+    setOpenModal(true);
+    setScholarshipIdModal(id);
+  };
+
   const {
+    id,
     studentFullName,
     sponsorFullName,
     instituteName,
@@ -146,7 +152,11 @@ const CardScholarship = ({ data }) => {
           </RowInformation>
         </Information>
         <div>
-          <Button icon={<EyeOutlined />} style={{ marginRight: "10px" }}>
+          <Button
+            icon={<EyeOutlined />}
+            onClick={() => handleDetail(id)}
+            style={{ marginRight: "10px" }}
+          >
             Ver Detalle
           </Button>
           <Button type="primary" icon={<EditOutlined />}>
