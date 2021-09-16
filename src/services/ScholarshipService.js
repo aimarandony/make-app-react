@@ -7,6 +7,16 @@ const getScholarships = async () => {
   return resp.data;
 };
 
+const getScholarshipsPaginator = async (pageNo, pageSize) => {
+  const resp = await clienteAxios.get(`/${model}/${pageNo}/${pageSize}`);
+  return resp.data;
+};
+
+const getScholarshipCount = async () => {
+  const resp = await clienteAxios.get(`/${model}/count`);
+  return resp.data;
+};
+
 const getOneScholarship = async (id) => {
   const resp = await clienteAxios.get(`/${model}/detail/${id}`);
   return resp.data;
@@ -17,4 +27,10 @@ const createScholarship = async (data) => {
   return resp.data;
 };
 
-export { getScholarships, createScholarship, getOneScholarship };
+export {
+  getScholarships,
+  getScholarshipsPaginator,
+  getScholarshipCount,
+  createScholarship,
+  getOneScholarship,
+};
