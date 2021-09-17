@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import HeaderPage from "../components/HeaderPage";
-
+import FilterWrapper from "../components/Scholarship/FilterWrapper";
 import ListScholarship from "../components/Scholarship/ListScholarship";
+import DrawerScholarship from "../components/Scholarship/DrawerScholarship";
+import ModalScholarship from "../components/Scholarship/ModalScholarship";
+
+import { getScholarshipCount } from "../services/ScholarshipService";
 
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import DrawerScholarship from "../components/Scholarship/DrawerScholarship";
-import ModalScholarship from "../components/Scholarship/ModalScholarship";
 
 const ScholarshipPage = () => {
   const [data, setData] = useState([]);
@@ -15,6 +17,12 @@ const ScholarshipPage = () => {
   const [scholarshipIdEdit, setScholarshipIdEdit] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [scholarshipIdModal, setScholarshipIdModal] = useState(0);
+  const [count, setCount] = useState(0)
+  const [currentPag, setCurrentPag] = useState(1)
+
+  useEffect(() => {
+    getScholarshipCount().then(setCount);
+  }, [])
 
   return (
     <div>
@@ -32,11 +40,16 @@ const ScholarshipPage = () => {
           </Button>
         }
       />
+      <FilterWrapper count={count}/>
       <ListScholarship
         data={data}
         setData={setData}
         setOpenModal={setOpenModal}
         setScholarshipIdModal={setScholarshipIdModal}
+        count={count}
+        setCount={setCount}
+        current={currentPag}
+        setCurrent={setCurrentPag}
       />
       <DrawerScholarship
         setData={setData}
@@ -44,6 +57,8 @@ const ScholarshipPage = () => {
         open={openDrawer}
         scholarshipIdEdit={scholarshipIdEdit}
         setScholarshipIdEdit={setScholarshipIdEdit}
+        setCount={setCount}
+        setCurrent={setCurrentPag}
       />
       <ModalScholarship
         setOpen={setOpenModal}

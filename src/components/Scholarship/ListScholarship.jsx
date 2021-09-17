@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import {
-  getScholarshipCount,
-  getScholarshipsPaginator,
-} from "../../services/ScholarshipService";
+import { getScholarshipsPaginator } from "../../services/ScholarshipService";
 
 import CardScholarship from "./CardScholarship";
 
@@ -29,10 +26,11 @@ const ListScholarship = ({
   setData,
   setOpenModal,
   setScholarshipIdModal,
+  count,
+  setCurrent,
+  current,
 }) => {
-  const [count, setCount] = useState(0);
-  const [pageSize, setPageSize] = useState(2);
-  const [current, setCurrent] = useState(1);
+  const [pageSize, setPageSize] = useState(4);
 
   const getDataScholarship = (page, pageSize) => {
     getScholarshipsPaginator(page, pageSize).then(setData);
@@ -44,10 +42,10 @@ const ListScholarship = ({
   };
 
   useEffect(() => {
-    getDataScholarship(0, pageSize);
-    getScholarshipCount().then(setCount);
-    setPageSize(2);
-    // eslint-disable-next-line
+    getScholarshipsPaginator(0, 4).then((resp) => {
+      setData(resp);
+      setPageSize(4);
+    });
   }, [setData]);
 
   return (

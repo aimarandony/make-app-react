@@ -14,7 +14,7 @@ const avatarSponsorURL = "https://i.pravatar.cc/150?img=32";
 const avatarStudentURL = "https://i.pravatar.cc/150?img=8";
 
 const Card = styled.div`
-  width: 550px;
+  width: calc(50% - 10px);
   height: 200px;
   padding: 20px 30px;
   background: white;

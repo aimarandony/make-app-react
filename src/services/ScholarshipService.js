@@ -27,10 +27,16 @@ const createScholarship = async (data) => {
   return resp.data;
 };
 
+const updateScholarship = async (id, data) => {
+  const resp = await clienteAxios.put(`/${model}/${id}`, data);
+  return resp.data;
+};
+
 export {
   getScholarships,
   getScholarshipsPaginator,
   getScholarshipCount,
   createScholarship,
+  updateScholarship,
   getOneScholarship,
 };

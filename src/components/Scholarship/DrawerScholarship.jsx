@@ -26,7 +26,8 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import {
   createScholarship,
-  getScholarships,
+  getScholarshipCount,
+  getScholarshipsPaginator,
 } from "../../services/ScholarshipService";
 
 const DividerForm = styled(Divider)`
@@ -46,6 +47,8 @@ const DrawerScholarship = ({
   open,
   setScholarshipIdEdit,
   scholarshipIdEdit,
+  setCount,
+  setCurrent
 }) => {
   const [students, setStudents] = useState([]);
   const [sponsors, setSponsors] = useState([]);
@@ -97,7 +100,6 @@ const DrawerScholarship = ({
     },
     validationSchema,
     onSubmit: (data) => {
-      console.log(data);
       if (scholarshipIdEdit === 0) {
         createScholarship(data)
           .then(() => {
@@ -113,7 +115,9 @@ const DrawerScholarship = ({
   });
 
   const updateDataScholarships = () => {
-    getScholarships().then(setData);
+    getScholarshipsPaginator(0, 4).then(setData);
+    getScholarshipCount().then(setCount)
+    setCurrent(1)
   };
 
   const handleCloseDrawer = () => {
