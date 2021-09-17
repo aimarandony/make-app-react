@@ -102,7 +102,7 @@ const Sidebar = ({ width, headerHeight }) => {
           </Link>
         </ListItem>
         <ListItem>
-          <Link to="/studentr">
+          <Link to="/institute">
             <DatabaseOutlined />
             <LinkName>Institución</LinkName>
           </Link>

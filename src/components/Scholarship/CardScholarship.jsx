@@ -15,6 +15,7 @@ const avatarStudentURL = "https://i.pravatar.cc/150?img=8";
 
 const Card = styled.div`
   width: calc(50% - 10px);
+  min-width: 550px;
   height: 200px;
   padding: 20px 30px;
   background: white;
@@ -92,12 +93,23 @@ const InfoText = styled.span`
   margin-left: 5px;
 `;
 
-const CardScholarship = ({ data, setOpenModal, setScholarshipIdModal }) => {
+const CardScholarship = ({
+  data,
+  setOpenModal,
+  setScholarshipIdModal,
+  setOpenDrawer,
+  setScholarshipIdEdit,
+}) => {
   moment.locale("es");
 
   const handleDetail = (id) => {
     setOpenModal(true);
     setScholarshipIdModal(id);
+  };
+
+  const handleEdit = (id) => {
+    setOpenDrawer(true);
+    setScholarshipIdEdit(id);
   };
 
   const {
@@ -159,7 +171,11 @@ const CardScholarship = ({ data, setOpenModal, setScholarshipIdModal }) => {
           >
             Ver Detalle
           </Button>
-          <Button type="primary" icon={<EditOutlined />}>
+          <Button
+            type="primary"
+            onClick={() => handleEdit(id)}
+            icon={<EditOutlined />}
+          >
             Editar
           </Button>
         </div>

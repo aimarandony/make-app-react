@@ -25,7 +25,9 @@ const ListScholarship = ({
   data,
   setData,
   setOpenModal,
+  setOpenDrawer,
   setScholarshipIdModal,
+  setScholarshipIdEdit,
   count,
   setCurrent,
   current,
@@ -57,6 +59,8 @@ const ListScholarship = ({
             key={resp.id}
             setOpenModal={setOpenModal}
             setScholarshipIdModal={setScholarshipIdModal}
+            setScholarshipIdEdit={setScholarshipIdEdit}
+            setOpenDrawer={setOpenDrawer}
           />
         ))}
       </CardWrapper>

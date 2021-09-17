@@ -26,6 +26,7 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import {
   createScholarship,
+  getOneScholarship,
   getScholarshipCount,
   getScholarshipsPaginator,
 } from "../../services/ScholarshipService";
@@ -81,7 +82,7 @@ const DrawerScholarship = ({
     setFieldValue,
     errors,
     touched,
-    resetForm,
+    resetForm
   } = useFormik({
     initialValues: {
       student: {
@@ -110,6 +111,8 @@ const DrawerScholarship = ({
           .catch(() => {
             message.error("Ocurrió un error al registrar.Inténtelo de nuevo.");
           });
+      } else {
+        console.log("EDIT");
       }
     },
   });
@@ -139,11 +142,19 @@ const DrawerScholarship = ({
     }
   };
 
+  const setDataScholarship = () => {
+    getOneScholarship(scholarshipIdEdit).then(resp => {
+      console.log("DRAWER", resp);
+    })
+  }
+
   useEffect(() => {
     getStudents().then(setStudents);
     getSponsors().then(setSponsors);
     getInstitutes().then(setInstitutes);
-  }, []);
+    scholarshipIdEdit !== 0 && setDataScholarship()
+    // eslint-disable-next-line
+  }, [scholarshipIdEdit]);
 
   return (
     <Drawer

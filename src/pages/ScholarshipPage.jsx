@@ -45,7 +45,9 @@ const ScholarshipPage = () => {
         data={data}
         setData={setData}
         setOpenModal={setOpenModal}
+        setOpenDrawer={setOpenDrawer}
         setScholarshipIdModal={setScholarshipIdModal}
+        setScholarshipIdEdit={setScholarshipIdEdit}
         count={count}
         setCount={setCount}
         current={currentPag}
