@@ -129,7 +129,7 @@ const DrawerScholarship = ({
   });
 
   const updateDataScholarships = () => {
-    getScholarshipsPaginator(0, 4).then(setData);
+    getScholarshipsPaginator(0, 3).then(setData);
     getScholarshipCount().then(setCount);
     setCurrent(1);
   };

@@ -32,7 +32,7 @@ const ListScholarship = ({
   setCurrent,
   current,
 }) => {
-  const [pageSize, setPageSize] = useState(4);
+  const [pageSize, setPageSize] = useState(3);
 
   const getDataScholarship = (page, pageSize) => {
     getScholarshipsPaginator(page, pageSize).then(setData);
@@ -44,9 +44,9 @@ const ListScholarship = ({
   };
 
   useEffect(() => {
-    getScholarshipsPaginator(0, 4).then((resp) => {
+    getScholarshipsPaginator(0, 3).then((resp) => {
       setData(resp);
-      setPageSize(4);
+      setPageSize(3);
     });
   }, [setData]);
 
