@@ -6,6 +6,7 @@ import TableInstitute from "../components/Institute/TableInstitute";
 
 import { PlusOutlined } from "@ant-design/icons";
 import { Button } from "antd";
+import { countInstitutes } from "../services/InstitutesService";
 
 const InstitutePage = () => {
   const [data, setData] = useState([]);
@@ -13,7 +14,7 @@ const InstitutePage = () => {
   const [filterTable, setFilterTable] = useState(null);
 
   useEffect(() => {
-    setCount(5);
+    countInstitutes().then(setCount);
   }, []);
 
   return (
@@ -23,7 +24,7 @@ const InstitutePage = () => {
         subTitle="Mantenimiento de Instituciones y Carreras"
         button={
           <Button type="primary" icon={<PlusOutlined />} size="large">
-            Nuevo Institución
+            Nueva Institución
           </Button>
         }
       />
