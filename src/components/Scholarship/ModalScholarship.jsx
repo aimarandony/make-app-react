@@ -130,6 +130,19 @@ const ModalScholarship = ({
     setScholarship(scholarshipObj);
   };
 
+  const getColorByStatus = () => {
+    switch (String(status).toLowerCase()) {
+      case "activo":
+        return "green";
+      case "suspendido":
+        return "purple";
+      case "finalizado":
+        return "blue";
+      default:
+        return "activo";
+    }
+  };
+
   useEffect(() => {
     scholarshipIdModal !== 0 &&
       getOneScholarship(scholarshipIdModal).then(setScholarship);
@@ -153,7 +166,7 @@ const ModalScholarship = ({
         </GroupAvatar>
         <NameStatus>
           <FullName>{studentFullName}</FullName>
-          <Tag color={status ? "green" : "red"}>Beca {status}</Tag>
+          <Tag color={getColorByStatus()}>Beca {status}</Tag>
         </NameStatus>
       </InfoTop>
       <Information>
@@ -186,7 +199,7 @@ const ModalScholarship = ({
               {moment(createAt).format("[Otorgado el] DD [de] MMMM [del] YYYY")}
             </InfoContentText>
           </InfoContentTextIcon>
-          <InfoContentTextIcon style={!finishAt && { display: "none" }}>
+          <InfoContentTextIcon style={{ display: !finishAt && "none" }}>
             <InfoIcon>
               <MdDateRange />
             </InfoIcon>

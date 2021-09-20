@@ -190,7 +190,7 @@ const CardScholarship = ({
   );
 
   const getColorByStatus = () => {
-    switch (status.toLowerCase()) {
+    switch (String(status).toLowerCase()) {
       case "activo":
         return "green";
       case "suspendido":
@@ -275,12 +275,16 @@ const CardScholarship = ({
       </Content>
       <GroupButtons>
         <Dropdown overlay={menu} trigger={["click"]}>
-          <ButtonDots icon={<HiOutlineDotsVertical />} />
+          <ButtonDots
+            style={{ display: status !== "activo" && "none" }}
+            icon={<HiOutlineDotsVertical />}
+          />
         </Dropdown>
         <Button icon={<EyeOutlined />} onClick={() => handleDetail(id)}>
           Ver Detalle
         </Button>
         <Button
+          style={{ display: status !== "activo" && "none" }}
           type="primary"
           onClick={() => handleEdit(id)}
           icon={<EditOutlined />}
