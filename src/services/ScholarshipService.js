@@ -22,6 +22,12 @@ const getOneScholarship = async (id) => {
   return resp.data;
 };
 
+const getOneScholarshipToUpdate = async (id) => {
+  const resp = await clienteAxios.get(`/${model}/${id}`);
+  return resp.data;
+};
+
+
 const createScholarship = async (data) => {
   const resp = await clienteAxios.post(`/${model}`, data);
   return resp.data;
@@ -39,4 +45,5 @@ export {
   createScholarship,
   updateScholarship,
   getOneScholarship,
+  getOneScholarshipToUpdate
 };

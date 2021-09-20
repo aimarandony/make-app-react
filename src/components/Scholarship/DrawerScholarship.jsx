@@ -26,9 +26,10 @@ import * as Yup from "yup";
 import styled from "styled-components";
 import {
   createScholarship,
-  getOneScholarship,
+  getOneScholarshipToUpdate,
   getScholarshipCount,
   getScholarshipsPaginator,
+  updateScholarship,
 } from "../../services/ScholarshipService";
 
 const DividerForm = styled(Divider)`
@@ -49,7 +50,7 @@ const DrawerScholarship = ({
   setScholarshipIdEdit,
   scholarshipIdEdit,
   setCount,
-  setCurrent
+  setCurrent,
 }) => {
   const [students, setStudents] = useState([]);
   const [sponsors, setSponsors] = useState([]);
@@ -82,7 +83,8 @@ const DrawerScholarship = ({
     setFieldValue,
     errors,
     touched,
-    resetForm
+    resetForm,
+    setValues,
   } = useFormik({
     initialValues: {
       student: {
@@ -113,20 +115,31 @@ const DrawerScholarship = ({
           });
       } else {
         console.log("EDIT");
+        updateScholarship(scholarshipIdEdit, data)
+          .then(() => {
+            message.success("Beca actualizada correctamente.");
+            updateDataScholarships();
+            handleCloseDrawer();
+          })
+          .catch(() => {
+            message.error("Ocurrió un error al actualizar.Inténtelo de nuevo.");
+          });
       }
     },
   });
 
   const updateDataScholarships = () => {
     getScholarshipsPaginator(0, 4).then(setData);
-    getScholarshipCount().then(setCount)
-    setCurrent(1)
+    getScholarshipCount().then(setCount);
+    setCurrent(1);
   };
 
   const handleCloseDrawer = () => {
     resetForm();
     setOpen(false);
     setScholarshipIdEdit(0);
+    setFieldValue("career.id", null);
+    setCareerDisabled(true);
   };
 
   const handleChangeInstitute = (id) => {
@@ -143,16 +156,31 @@ const DrawerScholarship = ({
   };
 
   const setDataScholarship = () => {
-    getOneScholarship(scholarshipIdEdit).then(resp => {
-      console.log("DRAWER", resp);
-    })
-  }
+    getOneScholarshipToUpdate(scholarshipIdEdit).then((resp) => {
+      handleChangeInstitute(resp.instituteId);
+      setValues({
+        student: {
+          id: resp.studentId,
+        },
+        sponsor: {
+          id: resp.sponsorId,
+        },
+        institute: {
+          id: resp.instituteId,
+        },
+        career: {
+          id: resp.careerId,
+        },
+        studentCode: resp.studentCode,
+      });
+    });
+  };
 
   useEffect(() => {
     getStudents().then(setStudents);
     getSponsors().then(setSponsors);
     getInstitutes().then(setInstitutes);
-    scholarshipIdEdit !== 0 && setDataScholarship()
+    scholarshipIdEdit !== 0 && setDataScholarship();
     // eslint-disable-next-line
   }, [scholarshipIdEdit]);
 
