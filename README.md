@@ -16,7 +16,7 @@ $ npm start
 
 or:
 
-```bash
+```bash esto es una prueba
 $ yarn
 $ yarn start
 ```
